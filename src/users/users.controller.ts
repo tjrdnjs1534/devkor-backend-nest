@@ -19,13 +19,13 @@ export class UsersController {
     } 
 
     @Get(':id')
-    getUserByID(@Param('id') id: string)
+    getUserByID(@Param('id') id: number)
     {
         return this.usersService.getUserByID(id)
     }
 
     @Delete(':id')
-    deleteUser(@Param('id') id:string) 
+    deleteUser(@Param('id') id: number) 
     {
         this.usersService.deleteUser(id);
     }
@@ -36,7 +36,7 @@ export class UsersController {
     //     return
     // }
     @Put(':id')
-    updateUser(@Param('id') id:string, @Body() updateUserDto : UpdateUserDto )
+    updateUser(@Param('id') id:number, @Body() updateUserDto : UpdateUserDto )
     {
         return this.usersService.updateUser(id,updateUserDto)
     }
