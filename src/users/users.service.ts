@@ -1,45 +1,56 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './users.entity';
 
 @Injectable()
 export class UsersService {
-  private USER_DUMMY = [{ id: 1, name: "JangSeokWon", age: 23 , role :1 },
-                        { id: 2, name: "kimsangyub", age: 24 , role:2}
-                    ];
+  constructor(
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
+  ) {}
 
-  getAllUsers() {
-    return this.USER_DUMMY;
+  getAllUsers() : Promise<UserEntity[]> {
+    return this.usersRepository.find();
   }
 
-  getUserByID(id : number) {
-    const user = this.USER_DUMMY.find((user)=>user.id === id)
+  async getUserByID(id : number) : Promise<UserEntity> {
+    const user = await this.usersRepository.findOneBy({ id })
     if(!user) {
         throw new NotFoundException("can't find user");
     }
     return user
   }
 
-  createUser(createUserDto : CreateUserDto) {
+  async createUser(createUserDto : CreateUserDto) {
     const {id, name, age, role} = createUserDto;
-    const newUser = {
+    const newUser = this.usersRepository.create({
         id,
         name,
         age,
         role
-    }
-    this.USER_DUMMY.push(newUser)
+    });
+    await this.usersRepository.insert(newUser);
     return newUser  
   }
 
-  deleteUser(id : number) {
-    this.getUserByID(id)
-    this.USER_DUMMY = this.USER_DUMMY.filter((user)=>user.id !== id);
+  async deleteUser(id : number) : Promise<void> {
+    await this.usersRepository.delete(id);
   }
 
-  updateUser(id: number, updateUserDto : UpdateUserDto) {
-    const updateUser = this.getUserByID(id)
-    this.deleteUser(id);
-    this.USER_DUMMY.push({...updateUser, ...updateUserDto})
+  async updateUser(id: number, updateUserDto : UpdateUserDto) : Promise<void> {
+    const updateUser = await this.usersRepository.findOneBy({ id })
+    if(!updateUser){
+      throw new NotFoundException("can't find user");
+    }
+    const {age, role} = updateUserDto
+    await this.usersRepository.update(
+      updateUser,
+      {age,role}
+    );
+     //update와 save 차이, id와 name은 변경할 수 없음
+    //this.USER_DUMMY.push({...updateUser, ...updateUserDto})
   }
 }
