@@ -12,8 +12,8 @@ import { TypeOrmConfigModule } from './configs/typeORM.config.module';
     ConfigModule.forRoot({isGlobal: true}),
     TypeOrmModule.forRootAsync({
       imports: [TypeOrmConfigModule],
-      inject: [TypeOrmConfigService],
-      useClass:TypeOrmConfigService,}),
+      useClass:TypeOrmConfigService,
+      inject: [TypeOrmConfigService],}),
     UsersModule,
   ],
   controllers: [AppController],
