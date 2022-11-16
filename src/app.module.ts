@@ -3,11 +3,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from './configs/typeorm.config';
+import { TypeOrmConfigService } from './configs/typeORM.config.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmConfigModule } from './configs/typeORM.config.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(typeORMConfig),
+    ConfigModule.forRoot({isGlobal: true}),
+    TypeOrmModule.forRootAsync({
+      imports: [TypeOrmConfigModule],
+      useClass:TypeOrmConfigService,
+      inject: [TypeOrmConfigService],}),
     UsersModule,
   ],
   controllers: [AppController],

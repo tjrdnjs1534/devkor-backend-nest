@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  api:
+    #image: tjrdnjs1534/devkor:0.0
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://seokwon:postgres@postgres:5432/test
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "8080:3000"   
+
+  postgres:
+    image: postgres
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=seokwon
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
+
+
+  #수정 방법 여쭤보기
