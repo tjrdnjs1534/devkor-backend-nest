@@ -23,6 +23,13 @@ export class UsersService {
     }
     return user;
   }
+  async getUserByuserID(userID: string): Promise<UserEntity> {
+    const user = await this.usersRepository.findOneBy({ userID });
+    if (!user) {
+      throw new NotFoundException("can't find user");
+    }
+    return user;
+  }
 
   async createUser(createUserDto: CreateUserDto) {
     // const { id, name, age, role } = createUserDto;
