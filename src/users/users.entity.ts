@@ -1,3 +1,4 @@
+import { Role } from "src/auth/BRAC/role.enum";
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm"
 
 @Entity('user')
@@ -11,8 +12,8 @@ export class UserEntity{
     @Column()
     age :number;
 
-    @Column()
-    role : number;
+    @Column({ type: 'enum', enum: Role, default: Role.User })
+    role : Role;
 
     @Column()
     userID: string;

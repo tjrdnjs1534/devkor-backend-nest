@@ -11,6 +11,7 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
   ) {}
+  
 
   async getAllUsers(): Promise<UserEntity[]> {
     return this.usersRepository.find();
@@ -54,7 +55,7 @@ export class UsersService {
     }
     await this.usersRepository.update(id, {
       age: updateUserDto.age,
-      role: updateUserDto.role,
+      //role: updateUserDto.role,
     });
 
     //update와 save 차이, id와 name은 변경할 수 없음

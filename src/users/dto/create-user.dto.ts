@@ -1,4 +1,5 @@
-import {IsNotEmpty, IsNumber, IsString} from 'class-validator'
+import {IsEnum, IsNotEmpty, IsNumber, IsString} from 'class-validator'
+import { Role } from 'src/auth/BRAC/role.enum';
 export class CreateUserDto {
 
     @IsNotEmpty()
@@ -8,8 +9,8 @@ export class CreateUserDto {
     @IsNumber()
     age :number;
 
-    @IsNumber()
-    role : number;
+    @IsEnum(Role)
+    role : Role;
     
     @IsNotEmpty()
     @IsString()
