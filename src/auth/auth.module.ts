@@ -18,7 +18,7 @@ import { LocalStrategy } from './strategies/local.strategy';
       signOptions: {expiresIn: '60s'}
     })
   ],
-  providers: [AuthService, JwtStrategy, LocalStrategy, RolesGuard],
+  providers: [AuthService, JwtStrategy, LocalStrategy, RolesGuard], //app_guard 왜 안됨?
   exports: [AuthService]
 })
 export class AuthModule {}
