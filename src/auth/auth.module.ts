@@ -8,6 +8,7 @@ import { jwtConstants } from './constants';
 import { RolesGuard } from './guards/role.guard';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports:[
@@ -19,6 +20,6 @@ import { LocalStrategy } from './strategies/local.strategy';
     })
   ],
   providers: [AuthService, JwtStrategy, LocalStrategy, RolesGuard], //app_guard 왜 안됨?
-  exports: [AuthService]
+  exports: [AuthService], controllers: [AuthController]
 })
 export class AuthModule {}
