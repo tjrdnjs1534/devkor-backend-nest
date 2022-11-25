@@ -1,5 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Photo } from "./productPhoto.entity";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { CategoryEntity } from "./productCategory.entity";
+import { PhotoEntity } from "./productPhoto.entity";
 
 @Entity('product')
 export class ProductEntity {
@@ -13,15 +14,17 @@ export class ProductEntity {
     @Column()
     price: number;
 
-    @Column()
-    date : string;
+    // @Column()
+    // date : string;
 
-    @Column()
-    category : string;
+    // @Column()
+    // stock: number;
 
-    @Column()
-    stock: number;
 
-    @OneToMany(type=> Photo, photo =>photo.product)
-    photos: Photo[];
+    @ManyToMany(() => CategoryEntity, (category) => category.product)
+    @JoinTable({name: 'product-category'})
+    category : CategoryEntity[];
+
+    @OneToMany(type=> PhotoEntity, photo =>photo.product, { nullable: true })
+    photos: PhotoEntity[];
 }

@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { CreatePhotoDto } from "./create-photo.dto";
 
 export class CreateProductDto {
     //name, price, category, size
@@ -10,6 +11,6 @@ export class CreateProductDto {
     @IsNumber()
     price: number;
 
-
-
+    //category: string;
+    photos: CreatePhotoDto;
 }
