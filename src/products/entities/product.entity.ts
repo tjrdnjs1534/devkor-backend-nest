@@ -19,7 +19,9 @@ export class ProductEntity {
 
     // @Column()
     // stock: number;
-
+    
+    // @Column()
+    //description: string;
 
     @ManyToMany(() => CategoryEntity, (category) => category.product)
     @JoinTable({name: 'p_c'})

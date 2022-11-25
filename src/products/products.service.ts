@@ -1,14 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-//import { CreateCategoryDto } from './dto/create-category.dto';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
 import { CategoryEntity } from './entities/productCategory.entity';
 import { PhotoEntity } from './entities/productPhoto.entity';
-import { productCategory } from './productCategory.enum';
 
 @Injectable()
 export class ProductsService {
@@ -90,6 +88,8 @@ export class ProductsService {
     await this.productsRepository.update(id,{
       name: updateProductDto.name,
       price: updateProductDto.price,
+      photos: updateProduct.photos,
+      //categories : updateProductDto.
     })
   } // 사진 업데이트는?, 카테고리 업데이트도
 
