@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreatePhotoDto } from './dto/create-photo.dto';
+import { Role } from 'src/auth/BRAC/role.enum';
+import { Roles } from 'src/auth/BRAC/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/role.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  
   @Post()
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   createProduct(@Body() createProductDto: CreateProductDto) {
     return this.productsService.createProduct(createProductDto);
   }
@@ -34,6 +41,8 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   removeProduct(@Param('id') id: string) {
     return this.productsService.removeProduct(+id);
   }
