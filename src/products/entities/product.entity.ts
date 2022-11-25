@@ -22,8 +22,8 @@ export class ProductEntity {
 
 
     @ManyToMany(() => CategoryEntity, (category) => category.product)
-    @JoinTable({name: 'product-category'})
-    category : CategoryEntity[];
+    @JoinTable({name: 'p_c'})
+    categories : CategoryEntity[];
 
     @OneToMany(type=> PhotoEntity, photo =>photo.product, { nullable: true })
     photos: PhotoEntity[];
