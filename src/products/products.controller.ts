@@ -23,7 +23,7 @@ export class ProductsController {
   @Post(':id')
   addPhoto(@Param('id') id:number, @Body() createPhotoDto : CreatePhotoDto){
     return this.productsService.addPhoto(id, createPhotoDto)
-  }
+  } // 사진 추가 - update로 바꾸기
   
   @Get()
   findAllProducts() {
