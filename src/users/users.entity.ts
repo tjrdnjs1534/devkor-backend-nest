@@ -1,7 +1,7 @@
 import { Role } from "src/auth/BRAC/role.enum";
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm"
 
-@Entity('user')
+@Entity('users')
 export class UserEntity{
     @PrimaryGeneratedColumn() // 지워도 초기화 안되는듯?? 
     id : number;
