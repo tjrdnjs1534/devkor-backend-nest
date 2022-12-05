@@ -66,6 +66,9 @@ export class ProductsService {
     const product = new ProductEntity();
     product.name = createProductDto.name;
     product.price = createProductDto.price;
+    product.stock = createProductDto.stock;
+    product.description = createProductDto.description;
+    //여기 유지 보수 편하게 바꾸기
     await this.productsRepository.save(product);
 
     for (const category of createProductDto.categories) {
@@ -107,7 +110,7 @@ export class ProductsService {
   async updateProduct(id: number, updateProductDto: UpdateProductDto) {
     const updateProduct = await this.productsRepository.findOne({
       where: { id: id },
-      relations: ['photos', 'categories'],
+      //relations: ['photos', 'categories'],
     });
     if (!updateProduct) {
       throw new NotFoundException("can't find product");
@@ -115,6 +118,9 @@ export class ProductsService {
     await this.productsRepository.update(id, {
       name: updateProductDto.name,
       price: updateProductDto.price,
+      description : updateProductDto.description,
+      stock : updateProductDto.stock
+      //이부분 유지 보수 편하게 바구기
       //categories : updateProductDto.
     });
     await this.removeAllPhoto(id);
