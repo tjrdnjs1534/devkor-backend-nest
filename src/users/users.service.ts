@@ -54,7 +54,7 @@ export class UsersService {
     await this.cartsRepository.save(newCart);
     createUserDto.password = await this.HashPassword(createUserDto.password);
     createUserDto.cart = newCart;
-    await this.usersRepository.save(createUserDto);
+    await this.usersRepository.save(createUserDto); // 카트 생성 하기
     console.log(createUserDto);
     return createUserDto;
   }
