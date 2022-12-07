@@ -1,5 +1,6 @@
 import {IsEnum, IsNotEmpty, IsNumber, IsString} from 'class-validator'
 import { Role } from 'src/auth/BRAC/role.enum';
+import { CartEntity } from 'src/carts/entities/cart.entity';
 export class CreateUserDto {
 
     @IsNotEmpty()
@@ -20,4 +21,5 @@ export class CreateUserDto {
     @IsString()
     password : string;
     
+    cart : CartEntity
 }

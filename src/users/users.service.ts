@@ -3,14 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserEntity } from './users.entity';
+import { UserEntity } from './entities/users.entity';
 import * as bcrypt from 'bcrypt';
+import { CartEntity } from 'src/carts/entities/cart.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
+
+    @InjectRepository(CartEntity)
+    private cartsRepository: Repository<CartEntity>
   ) {}
 
   async getAllUsers(): Promise<UserEntity[]> {
@@ -46,7 +50,10 @@ export class UsersService {
     //   age,
     //   role,
     // });
+    const newCart = new CartEntity();
+    await this.cartsRepository.save(newCart);
     createUserDto.password = await this.HashPassword(createUserDto.password);
+    createUserDto.cart = newCart;
     await this.usersRepository.save(createUserDto);
     console.log(createUserDto);
     return createUserDto;

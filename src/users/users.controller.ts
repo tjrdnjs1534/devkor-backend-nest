@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put , Patch, UseGuards } fr
 import { UsersService } from './users.service';
 import {CreateUserDto} from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserEntity } from './users.entity';
+import { UserEntity } from './entities/users.entity';
 import { Roles } from 'src/auth/BRAC/roles.decorator';
 import { Role } from 'src/auth/BRAC/role.enum';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
