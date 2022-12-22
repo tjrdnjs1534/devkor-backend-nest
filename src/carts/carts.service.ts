@@ -5,6 +5,7 @@ import { UserEntity } from 'src/users/entities/users.entity';
 import { Repository } from 'typeorm';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
+import { CartEntity } from './entities/cart.entity';
 
 @Injectable()
 export class CartsService {
@@ -13,26 +14,38 @@ export class CartsService {
     private readonly productsRepository: Repository<ProductEntity>,
     
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+
+    @InjectRepository(CartEntity)
+    private readonly cartsRepository: Repository<CartEntity>
   ) {}
 
-  addItemInCart(createCartDto: CreateCartDto) {
-    return 'This action adds a new cart';
+  async addItemInCart(productID : number, id : number) {
+    const updateProduct = await this.productsRepository.findOne({
+      where: { id: productID }
+    });
+    const cart = await this.cartsRepository.findOne({
+        where: { id : id},
+        relations: ['product'],
+      });
+    cart.num_Items++;
+    cart.product.push(updateProduct);
+    await this.cartsRepository.save(cart);
   }
 
-  findAllInCart() {
-    return `This action returns all carts`;
+  async findAllInCart(id: number) {
+    return await this.cartsRepository.find({
+      where: { id: id },
+      relations : ['product']
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cart`;
-  }
-
-  update(id: number, updateCartDto: UpdateCartDto) {
-    return `This action updates a #${id} cart`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cart`;
+  async removeItemInCart(productID : number, id : number) {
+    await this.cartsRepository
+    .createQueryBuilder()
+    .delete()
+    .from('cart_products')
+    .where('productsId = :productId', { productId : productID })
+    .execute();
   }
 }

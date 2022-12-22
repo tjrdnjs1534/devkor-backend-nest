@@ -76,6 +76,11 @@ export class ProductsService {
         where: { category_name: category },
         relations: ['product'],
       });
+      
+      if(!findcategory){ 
+        throw new NotFoundException("cant");
+      }
+
       findcategory.product.push(product);
       await this.categoryRepository.save(findcategory);
     } // 기존 카테고리에 등록하도록 함, error처리 필요

@@ -5,7 +5,7 @@ import { Column, Entity, JoinTable, ManyToMany,  PrimaryGeneratedColumn } from "
 export class CartEntity{
     @PrimaryGeneratedColumn()
     id: number
-    @Column()
+    @Column({default: 0})
     num_Items : number
     
     @ManyToMany(type => ProductEntity, product => product.carts,)

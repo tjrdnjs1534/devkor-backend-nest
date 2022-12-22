@@ -18,7 +18,7 @@ import { UsersService } from 'src/users/users.service';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: {expiresIn: '60s'}
+      signOptions: {expiresIn: '4h'}
     })
   ],
   providers: [AuthService, JwtStrategy, LocalStrategy, GoogleStrategy, RolesGuard], //app_guard 왜 안됨?

@@ -8,27 +8,17 @@ export class CartsController {
   constructor(private readonly cartsService: CartsService) {}
 
   @Post()
-  create(@Body() createCartDto: CreateCartDto) {
-   // return this.cartsService.create(createCartDto);
-  }
-
-  @Get()
-  findAll() {
-    //return this.cartsService.findAll();
+  create(@Body('productID') productID : number, @Body('id') id : number ) {
+    return this.cartsService.addItemInCart(productID, id);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cartsService.findOne(+id);
+  findALL(@Param('id') id: number) {
+    return this.cartsService.findAllInCart(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCartDto: UpdateCartDto) {
-    return this.cartsService.update(+id, updateCartDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cartsService.remove(+id);
+  @Delete()
+  remove(@Body('productID') productID : number, @Body('id') id : number ) {
+    return this.cartsService.removeItemInCart(productID, id);
   }
 }
