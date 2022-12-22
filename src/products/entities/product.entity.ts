@@ -1,4 +1,5 @@
 import { CartEntity } from "src/carts/entities/cart.entity";
+import { OrderDetailEntity } from "src/orders/entities/orderDetail.entity";
 import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CategoryEntity } from "./productCategory.entity";
 import { PhotoEntity } from "./productPhoto.entity";
@@ -34,4 +35,8 @@ export class ProductEntity {
 
     @ManyToMany(type => CartEntity, cart=> cart.product)
     carts: CartEntity[];
+
+    @OneToMany(type => OrderDetailEntity, order_detail => order_detail.product, { nullable: true })
+    orders_detail : OrderDetailEntity[]
+
 }

@@ -9,17 +9,22 @@ export class OrdersController {
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {
-    return this.ordersService.create(createOrderDto);
+    return this.ordersService.createOrder(createOrderDto);
   }
 
   @Get()
   findAll() {
-    return this.ordersService.findAll();
+    return this.ordersService.findAllOrders();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
+    return this.ordersService.findOneOrder(+id);
+  }
+
+  @Get('products/:id')
+  findProductOrders(@Param('id') id: number) {
+    return this.ordersService.findProductOrders(id);
   }
 
   @Patch(':id')
@@ -28,7 +33,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.ordersService.removeOrder(id);
   }
 }

@@ -13,9 +13,7 @@ export class CartsService {
     @InjectRepository(ProductEntity)
     private readonly productsRepository: Repository<ProductEntity>,
     
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
-
+    
     @InjectRepository(CartEntity)
     private readonly cartsRepository: Repository<CartEntity>
   ) {}

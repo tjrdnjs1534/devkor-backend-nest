@@ -1,5 +1,6 @@
 import { Role } from "src/auth/BRAC/role.enum";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm"
+import { OrderEntity } from "src/orders/entities/order.entity";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm"
 import { CartEntity } from "../../carts/entities/cart.entity";
 
 @Entity('users')
@@ -25,4 +26,9 @@ export class UserEntity{
     @OneToOne(()=>CartEntity)
     @JoinColumn({ name: 'ref_cartID' })
     cart : CartEntity
+
+    @OneToMany(type=> OrderEntity, order =>order.user, { nullable: true })
+    orders : OrderEntity[]
+
 }
+
