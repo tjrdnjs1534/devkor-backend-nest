@@ -14,5 +14,11 @@ export class CreateProductDto {
     @IsEnum(productCategory)
     categories: productCategory[];
 
+    @IsNumber()
+    stock: number;
+
+    @IsString()
+    description: string;
+
     photos: CreatePhotoDto;
 }

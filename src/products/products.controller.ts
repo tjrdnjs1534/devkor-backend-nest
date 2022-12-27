@@ -21,6 +21,8 @@ export class ProductsController {
   }
 
   @Post(':id')
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   addPhoto(@Param('id') id:number, @Body() createPhotoDto : CreatePhotoDto){
     return this.productsService.addPhoto(id, createPhotoDto)
   } // 사진 추가 - update로 바꾸기
@@ -36,6 +38,8 @@ export class ProductsController {
   }
 
   @Patch(':id')
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard,RolesGuard)
   updateProduct(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.updateProduct(id, updateProductDto);
   }
@@ -43,7 +47,7 @@ export class ProductsController {
   @Delete(':id')
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard,RolesGuard)
-  removeProduct(@Param('id') id: string) {
-    return this.productsService.removeProduct(+id);
+  removeProduct(@Param('id') id: number) {
+    return this.productsService.removeProduct(id);
   }
 }
