@@ -45,4 +45,4 @@ EXPOSE 3000
 # Node ENV
 ENV GOOGLE_CLIENT_ID = 1089319691605-o68oqcjnte5gad26qki0cks06cslh5sn.apps.googleusercontent.com
 ENV GOOGLE_SECRET = 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
-ENV NODE_ENV=production
+#ENV NODE_ENV=production
