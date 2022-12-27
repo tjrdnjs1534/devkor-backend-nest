@@ -1,27 +1,33 @@
-version: '3.9'
+version: '3.8'
+
 services:
-  api:
-    #image: tjrdnjs1534/devkor:0.0
-    build: 
-      dockerfile: Dockerfile
-      context: .
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://seokwon:postgres@postgres:5432/test
-      NODE_ENV: development
-      PORT: 3000
-    ports:
-      - "8080:3000"   
-
-  postgres:
+  db:
     image: postgres
-    ports: 
-      - 5432:5432
     environment:
-      - POSTGRES_USER=seokwon
-      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=test
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8
 
-
-  #수정 방법 여쭤보기
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=test
+      - DB_USERNAME=test
+      - DB_PASSWORD=test
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    command:
+      - bash
+      - -c
+      - |
+        /app/wait-for-it.sh db:5432 -t 10
+      - npm run local
+    volumes:
+      - ./:/app/
