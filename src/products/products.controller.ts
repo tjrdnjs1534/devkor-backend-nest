@@ -14,15 +14,15 @@ export class ProductsController {
 
   
   @Post()
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  //@Roles(Role.Admin)
+  //@UseGuards(JwtAuthGuard,RolesGuard)
   createProduct(@Body() createProductDto: CreateProductDto) {
     return this.productsService.createProduct(createProductDto);
   }
 
   @Post(':id')
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  //@Roles(Role.Admin)
+  //@UseGuards(JwtAuthGuard,RolesGuard)
   addPhoto(@Param('id') id:number, @Body() createPhotoDto : CreatePhotoDto){
     return this.productsService.addPhoto(id, createPhotoDto)
   } // 사진 추가 - update로 바꾸기
@@ -38,15 +38,15 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  //@Roles(Role.Admin)
+  //@UseGuards(JwtAuthGuard,RolesGuard)
   updateProduct(@Param('id') id: number, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.updateProduct(id, updateProductDto);
   }
 
   @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  //@Roles(Role.Admin)
+  //@UseGuards(JwtAuthGuard,RolesGuard)
   removeProduct(@Param('id') id: number) {
     return this.productsService.removeProduct(id);
   }

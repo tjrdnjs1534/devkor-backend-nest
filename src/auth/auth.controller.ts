@@ -13,7 +13,7 @@ export class AuthController {
     private readonly usersService: UsersService
     ) {}
 
-  @UseGuards(LocalAuthGuard)
+  //@UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Req() req: Request, @Res() res: Response) {
     const jwt = await this.authService.login(req.user);

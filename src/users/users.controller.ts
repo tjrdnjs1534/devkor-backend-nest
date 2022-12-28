@@ -13,8 +13,8 @@ export class UsersController {
     constructor (private readonly usersService : UsersService) {}
     
     @Get()
-    @Roles(Role.Admin)
-    @UseGuards(JwtAuthGuard,RolesGuard)
+    //@Roles(Role.Admin)
+    //@UseGuards(JwtAuthGuard,RolesGuard)
     getAllUsers() : Promise<UserEntity[]>{ 
         return this.usersService.getAllUsers()
     }
