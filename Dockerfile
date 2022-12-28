@@ -15,14 +15,13 @@ FROM node:16-alpine3.11
 # RUN wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip
 # RUN unzip NanumFont_TTF_ALL.zip -d /usr/share/fonts/nanumfont
 # RUN fc-cache -f && rm -rf /var/cache/*
-
 # bash install
 RUN apk add bash
 
 # # Language
 # ENV LANG=ko_KR.UTF-8 \
 #     LANGUAGE=ko_KR.UTF-8
-
+s
 # Set the timezone in docker
 RUN apk --no-cache add tzdata && \
         cp /usr/share/zoneinfo/Asia/Seoul /etc/localtime && \
@@ -45,4 +44,4 @@ EXPOSE 3000
 # Node ENV
 ENV GOOGLE_CLIENT_ID = 1089319691605-o68oqcjnte5gad26qki0cks06cslh5sn.apps.googleusercontent.com
 ENV GOOGLE_SECRET = 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
-ENV NODE_ENV=production
+#ENV NODE_ENV=production
