@@ -22,10 +22,12 @@ export class CartsService {
     const updateProduct = await this.productsRepository.findOne({
       where: { id: productID }
     });
+    console.log(id)
     const cart = await this.cartsRepository.findOne({
         where: { id : id},
         relations: ['product'],
       });
+    console.log(cart);
     cart.num_Items++;
     cart.product.push(updateProduct);
     await this.cartsRepository.save(cart);
