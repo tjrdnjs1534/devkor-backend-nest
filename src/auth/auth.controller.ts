@@ -22,7 +22,7 @@ export class AuthController {
       httpOnly: true,
       maxAge: 60 * 60 * 1000,
       sameSite : 'none',
-      
+      secure: true,
     });
     return res.json('JWT_token');
   }
