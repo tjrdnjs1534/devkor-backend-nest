@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from 'src/products/entities/product.entity';
 import { UserEntity } from 'src/users/entities/users.entity';
-import { Repository } from 'typeorm';
+import {  Repository } from 'typeorm';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { CartEntity } from './entities/cart.entity';
@@ -13,9 +13,9 @@ export class CartsService {
     @InjectRepository(ProductEntity)
     private readonly productsRepository: Repository<ProductEntity>,
     
-    
     @InjectRepository(CartEntity)
-    private readonly cartsRepository: Repository<CartEntity>
+    private readonly cartsRepository: Repository<CartEntity>,
+
   ) {}
 
   async addItemInCart(productID : number, id : number) {
@@ -27,17 +27,23 @@ export class CartsService {
         where: { id : id},
         relations: ['product'],
       });
-    console.log(cart);
     cart.num_Items++;
     cart.product.push(updateProduct);
     await this.cartsRepository.save(cart);
   }
 
   async findAllInCart(id: number) {
+    // return await this.cartsRepository.find({
+    //   where: { id: id },
+    //   relations : ['product','product_photo']
+    // });
+
     return await this.cartsRepository.find({
       where: { id: id },
-      relations : ['product']
+      relations : ['product', 'product.photos']
     });
+
+    
   }
 
   async removeItemInCart(productID : number, id : number) {
