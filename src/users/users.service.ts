@@ -29,7 +29,10 @@ export class UsersService {
     return user;
   }
   async getUserByuserID(userID: string): Promise<UserEntity> {
-    const user = await this.usersRepository.findOneBy({ userID });
+    const user = await this.usersRepository.findOne({
+      where: { userID: userID },
+      relations: ['cart'],
+    });
     if (!user) {
       throw new NotFoundException("can't find user");
     }
@@ -55,7 +58,6 @@ export class UsersService {
     createUserDto.password = await this.HashPassword(createUserDto.password);
     createUserDto.cart = newCart;
     await this.usersRepository.save(createUserDto); // 카트 생성 하기
-    console.log(createUserDto);
     return createUserDto;
   }
 

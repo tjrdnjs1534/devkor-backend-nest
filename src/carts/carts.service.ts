@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductEntity } from 'src/products/entities/product.entity';
-import { UserEntity } from 'src/users/entities/users.entity';
 import {  Repository } from 'typeorm';
-import { CreateCartDto } from './dto/create-cart.dto';
-import { UpdateCartDto } from './dto/update-cart.dto';
 import { CartEntity } from './entities/cart.entity';
 
 @Injectable()
@@ -22,7 +19,6 @@ export class CartsService {
     const updateProduct = await this.productsRepository.findOne({
       where: { id: productID }
     });
-    console.log(id)
     const cart = await this.cartsRepository.findOne({
         where: { id : id},
         relations: ['product'],
